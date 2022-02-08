@@ -1,21 +1,32 @@
 #include <stdio.h>
 #include <assert.h>
+#include "MonitorBattery.h"
+#include "BatteryStatusLib.h"
 
-int batteryIsOk(float temperature, float soc, float chargeRate) {
-  if(temperature < 0 || temperature > 45) {
-    printf("Temperature out of range!\n");
-    return 0;
-  } else if(soc < 20 || soc > 80) {
-    printf("State of Charge out of range!\n");
-    return 0;
-  } else if(chargeRate > 0.8) {
-    printf("Charge Rate out of range!\n");
-    return 0;
-  }
-  return 1;
+void BatteryStatusOk(float chargingTemperature, float dischargingTemperature, float SoC, float ChargingRate, float DischargingRate)
+{
+    BMSParameters BatteryParameters = {chargingTemperature, dischargingTemperature, SoC, ChargingRate, DischargingRate};
+
+    assert(batteryIsOk(BatteryParameters));
+}
+
+void BatteryStatusNotOk(float chargingTemperature, float dischargingTemperature, float SoC, float ChargingRate, float DischargingRate)
+{
+    BMSParameters BatteryParameters = {chargingTemperature, dischargingTemperature, SoC, ChargingRate, DischargingRate};
+
+    assert(!batteryIsOk(BatteryParameters));
 }
 
 int main() {
-  assert(batteryIsOk(25, 70, 0.7));
-  assert(!batteryIsOk(50, 85, 0));
+
+    BatteryStatusOk(50, 10, 50, 0.5, 0.2);
+    BatteryStatusNotOk(85, 10, 50, 0.5, 0.3);
+    BatteryStatusNotOk(-20, -30, 50, 0.5, 0.3);
+    BatteryStatusNotOk(-20, 10, 81, 0.5, 0.3);
+    BatteryStatusNotOk(-20, 10, 11, 0.5, 0.3);
+    BatteryStatusNotOk(55, 10, 55, 0.81, 0.3);
+    BatteryStatusNotOk(50, 10, 50, 0.8, 0.31);
+    BatteryStatusNotOk(85, 10, 50, 0.8, 0.3);
+
+  return 0;
 }
