@@ -1,7 +1,7 @@
 #include "BatteryStatusLib.h"
 #include "MonitorBattery.h"
 
-bool BatteryChargingAtGoodRate(float ChargeRate)
+static bool BatteryChargingAtGoodRate(float ChargeRate)
 {
     bool IsChargeRateAboveLimit = IsLesserThanMaxThreshold(ChargeRate, BatteryChargeRateMaxLimit);
     if(!IsChargeRateAboveLimit)
@@ -12,7 +12,7 @@ bool BatteryChargingAtGoodRate(float ChargeRate)
     return IsChargeRateAboveLimit;
 }
 
-bool BatteryDischargingAtGoodRate(float DischargeRate)
+static bool BatteryDischargingAtGoodRate(float DischargeRate)
 {
     bool IsDischargeRateAboveLimit = IsLesserThanMaxThreshold(DischargeRate, BatteryDischargeRateMaxLimit);
     if(!IsDischargeRateAboveLimit)
@@ -21,4 +21,11 @@ bool BatteryDischargingAtGoodRate(float DischargeRate)
     }
 
     return IsDischargeRateAboveLimit;
+}
+
+bool ChargeAndDischargeIsGood(float ChargeRate, float DischargeRate)
+{
+    bool IsChargeAndDischargeGood = (BatteryChargingAtGoodRate(ChargeRate) && BatteryDischargingAtGoodRate(DischargeRate));
+    
+    return IsChargeAndDischargeGood;
 }
