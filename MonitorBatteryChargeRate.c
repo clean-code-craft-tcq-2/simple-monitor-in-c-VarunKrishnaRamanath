@@ -14,7 +14,7 @@ bool BatteryChargingAtGoodRate(float ChargeRate)
 
 bool BatteryDischargingAtGoodRate(float DischargeRate)
 {
-    bool IsDischargeRateAboveLimit = IsLesserThanMaxThreshold(DischargeRate, BatteryDishargeRateMaxLimit);
+    bool IsDischargeRateAboveLimit = IsLesserThanMaxThreshold(DischargeRate, BatteryDischargeRateMaxLimit);
     if(!IsDischargeRateAboveLimit)
     {
         printf("Discharging Rate is out of range!\n");
