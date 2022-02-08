@@ -17,16 +17,34 @@ void BatteryStatusNotOk(float chargingTemperature, float dischargingTemperature,
     assert(!batteryIsOk(BatteryParameters));
 }
 
+void TestBatteryWithParam(void)
+{
+    /* All Ok*/
+    BatteryStatusOk(0, -20.0, 20.0, 0.8, 0.3);
+    BatteryStatusOk(45.0, 60.0, 80.0, 0.8, 0.3);
+
+    /* Charging Temp not ok */
+    BatteryStatusNotOk(-1, -20.0, 20.0, 0.8, 0.3);
+    BatteryStatusNotOk(45.1, 60.0, 80.0, 0.8, 0.3);
+
+    /* Discharging Temp not ok */
+    BatteryStatusNotOk(0, -20.1, 20.0, 0.8, 0.3);
+    BatteryStatusNotOk(45.0, 60.1, 80.0, 0.8, 0.3);
+
+    /* Soc not ok */
+    BatteryStatusNotOk(0, -20.0, 19.9, 0.8, 0.3);
+    BatteryStatusNotOk(45.0, 60.0, 80.1, 0.8, 0.3);
+
+    /* Charging rate not ok */
+    BatteryStatusNotOk(0, -20.0, 20.0, 0.81, 0.3);
+    /* Discharging rate not ok */
+    BatteryStatusNotOk(45.0, 60.0, 80.0, 0.8, 0.31);
+}
+
 int main() {
 
-    BatteryStatusOk(50, 10, 50, 0.5, 0.2);
-    BatteryStatusNotOk(85, 10, 50, 0.5, 0.3);
-    BatteryStatusNotOk(-20, -30, 50, 0.5, 0.3);
-    BatteryStatusNotOk(-20, 10, 81, 0.5, 0.3);
-    BatteryStatusNotOk(-20, 10, 11, 0.5, 0.3);
-    BatteryStatusNotOk(55, 10, 55, 0.81, 0.3);
-    BatteryStatusNotOk(50, 10, 50, 0.8, 0.31);
-    BatteryStatusNotOk(85, 10, 50, 0.8, 0.3);
+    TestBatteryWithParam();
+
 
   return 0;
 }
