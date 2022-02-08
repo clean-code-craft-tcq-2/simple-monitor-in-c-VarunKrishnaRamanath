@@ -4,7 +4,7 @@
 #define BATTERY_TYPE    LITHIUM_ION
 
 extern bool batteryIsOk(BMSParameters BatteryParameters);
-extern bool BatteryTemperatureIsGood(float temperature);
+extern bool BatteryTemperatureIsGood(float chargingTemperature, float dischargingTemperature);
 extern bool BatteryCapacityIsGood(float SoC);
 extern bool BatteryChargingAtGoodRate(float ChargeRate);
 extern bool BatteryDischargingAtGoodRate(float DischargeRate);
