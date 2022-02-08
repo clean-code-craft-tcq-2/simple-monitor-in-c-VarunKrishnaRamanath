@@ -1,14 +1,14 @@
 #include "BatteryStatusLib.h"
 #include "MonitorBattery.h"
 
-bool batteryIsOk(BMSParameters BatteryParameters) 
+bool batteryIsOk(BMSParameters BatteryParameters)
 {
   bool BatteryStatus = BATTERY_HEALTH_IS_GOOD;
 
-  BatteryStatus &&= BatteryTemperatureIsGood(BatteryParameters.ChargingTemperature, BatteryParameters.DischargingTemperature);
-  BatteryStatus &&= BatteryCapacityIsGood(BatteryParameters.SoC);
-  BatteryStatus &&= BatteryChargingAtGoodRate(BatteryParameters.ChargingRate);
-  BatteryStatus &&= BatteryDischargingAtGoodRate(BatteryParameters.DischargingRate);
+  BatteryStatus = BatteryStatus &&  BatteryTemperatureIsGood(BatteryParameters.ChargingTemperature, BatteryParameters.DischargingTemperature);
+  BatteryStatus = BatteryStatus &&  BatteryCapacityIsGood(BatteryParameters.SoC);
+  BatteryStatus = BatteryStatus &&  BatteryChargingAtGoodRate(BatteryParameters.ChargingRate);
+  BatteryStatus = BatteryStatus &&  BatteryDischargingAtGoodRate(BatteryParameters.DischargingRate);
 
   return BatteryStatus;
 }
