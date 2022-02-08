@@ -4,7 +4,7 @@
 bool batteryIsOk(BMSParameters BatteryParameters)
 {
   bool BatteryStatus = BATTERY_HEALTH_IS_GOOD;
-  bool TempStatus, SoCStatus, ChargingStatus, DischargeStatus = FALSE;
+  bool TempStatus, SoCStatus, ChargingStatus, DischargeStatus = false;
 
   TempStatus = BatteryTemperatureIsGood(BatteryParameters.ChargingTemperature, BatteryParameters.DischargingTemperature);
   SoCStatus = BatteryCapacityIsGood(BatteryParameters.SoC);
