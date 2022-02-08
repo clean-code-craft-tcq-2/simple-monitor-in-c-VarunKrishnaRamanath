@@ -12,7 +12,8 @@ typedef struct{
 }MinMaxType;
 
 typedef struct{
-    float Temperature;
+    float ChargingTemperature;
+    float DischargingTemperature;
     float SoC;
     float ChargingRate;
     float DischargingRate;
