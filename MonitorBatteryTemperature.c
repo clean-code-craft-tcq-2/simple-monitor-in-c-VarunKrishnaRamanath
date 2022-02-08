@@ -1,15 +1,16 @@
 #include "BatteryStatusLib.h"
 #include "MonitorBattery.h"
 
-bool BatteryTemperatureIsGood(float temperature)
+bool BatteryTemperatureIsGood(float chargingTemperature, float dischargingTemperature)
 {
-    bool IsTemperatureWithinRange = IsWithinRange(temperature, BatteryChargingTemperatureRange);
-    bool IsTemperatureWithinRange &&= IsWithinRange(temperature, BatteryDischargingTemperatureRange);
+    bool IsChargingTempWithinRange = IsWithinRange(chargingTemperature, BatteryChargingTemperatureRange);
+    bool IsDischargingTempWithinRange = IsWithinRange(dischargingTemperature, BatteryDischargeTemperatureRange);
+    bool TempStatus = (IsChargingTempWithinRange && IsDischargingTempWithinRange);
 
-    if(!IsTemperatureWithinRange)
+    if(!TempStatus)
     {
         printf("Temperature out of range!\n");
     }
 
-    return IsTemperatureWithinRange;
+    return TempStatus;
 }
