@@ -2,6 +2,7 @@
 #define BATTERYSTATUSLIB_H_INCLUDED
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #define BATTERY_HEALTH_IS_GOOD         true
 #define BATTERY_HEALTH_IS_NOT_GOOD     false
@@ -19,7 +20,13 @@ typedef struct{
     float DischargingRate;
 }BMSParameters;
 
-inline bool IsWithinRange(float Value, const MinMaxType Range)
+extern const MinMaxType BatteryChargingTemperatureRange;
+extern const MinMaxType BatteryDischargeTemperatureRange;
+extern const MinMaxType BatterySoCRange;
+extern const float BatteryChargeRateMaxLimit;
+extern const float BatteryDischargeRateMaxLimit;
+
+static inline bool IsWithinRange(float Value, const MinMaxType Range)
 {
     bool WithinRange = true;
     if(Value < Range.MinValue)
@@ -33,7 +40,7 @@ inline bool IsWithinRange(float Value, const MinMaxType Range)
     return WithinRange;
 }
 
-inline bool IsGreaterThanMinThreshold(float Value, const float MinThreshold)
+static inline bool IsGreaterThanMinThreshold(float Value, const float MinThreshold)
 {
     bool GreaterThanMinThreshold = true;
     if(Value < MinThreshold)
@@ -44,7 +51,7 @@ inline bool IsGreaterThanMinThreshold(float Value, const float MinThreshold)
     return GreaterThanMinThreshold;
 }
 
-inline bool IsLesserThanMaxThreshold(float Value, const float MaxThreshold)
+static inline bool IsLesserThanMaxThreshold(float Value, const float MaxThreshold)
 {
     bool LesserThanMaxThreshold = true;
     if(Value > MaxThreshold)
